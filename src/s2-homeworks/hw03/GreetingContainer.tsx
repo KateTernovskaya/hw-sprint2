@@ -8,8 +8,9 @@ type GreetingContainerPropsType = {
     addUserCallback: (name: string) => void
 }
 
-export const pureAddUser = (name: string, setError: React.Dispatch<React.SetStateAction<string>>,
-                            setName: React.Dispatch<React.SetStateAction<string>>,
+export const pureAddUser = (name: string,
+                            setError: (error: string)=> void,
+                            setName: (error: string)=> void,
                             addUserCallback: (name: string) => void) => {
 
     if (name.trim() !== '') {
@@ -21,7 +22,7 @@ export const pureAddUser = (name: string, setError: React.Dispatch<React.SetStat
     }
 }
 
-export const pureOnBlur = (name: string, setError: React.Dispatch<React.SetStateAction<string>>) => {
+export const pureOnBlur = (name: string, setError: (error: string)=> void) => {
     if (name.trim() === '') {
         setError('Ошибка! Введите имя!')
     }
