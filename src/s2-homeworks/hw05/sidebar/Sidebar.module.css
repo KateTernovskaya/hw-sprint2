@@ -16,9 +16,9 @@
     opacity: 0.3;
     position: absolute;
     right: 0;
-    width: 75%;
+    width: 80%;
     height: 100%;
-    z-index: 3;
+    z-index: 1;
 }
 
 .nav {
