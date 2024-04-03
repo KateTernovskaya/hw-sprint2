@@ -1,25 +1,61 @@
 .sidebar {
+    display: none;
+    width: 318px;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
 }
 
 .sidebar.open {
+    display: block;
+    background-color: white;
 }
 
 .background {
+    background-color: #000;
+    opacity: 0.3;
+    position: absolute;
+    right: 0;
+    width: 75%;
+    height: 100%;
+    z-index: 3;
 }
 
 .nav {
+    margin: 64px 0 0 70px;
 }
 
 .nav a {
+    font-weight: 600;
+    font-size: 22px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    cursor: pointer;
 }
 
 .nav a:hover {
+    color: #58acff;
 }
 
 .nav a.active {
+    text-decoration: underline;
+    color: #0059b2;
 }
+
 .close {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    cursor: pointer;
 }
 
 .close img {
+    width: 24px;
+    height: 24px;
 }
+
