@@ -1,7 +1,12 @@
 .container {
+    width: 250px;
 }
 
 .wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
 }
 
 .number {
