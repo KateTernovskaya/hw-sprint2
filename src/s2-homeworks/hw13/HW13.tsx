@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import s2 from '../../s1-main/App.module.css'
 import s from './HW13.module.css'
 import SuperButton from '../hw04/common/c2-SuperButton/SuperButton'
-import axios from 'axios'
+import axios, {AxiosError, AxiosResponse} from 'axios'
 import success200 from './images/200.svg'
 import error400 from './images/400.svg'
 import error500 from './images/500.svg'
@@ -43,29 +43,58 @@ const HW13 = () => {
                 setInfo(res.data.info)
             })
             .catch((e) => {
-                if (axios.isAxiosError(e)) {
-                    switch (e.response?.status) {
-                        case 400:
-                            setCode('Код 400!');
-                            setImage(error400);
-                            break;
-                        case 500:
-                            setCode('Код 500!');
-                            setImage(error500);
-                            break;
-                        default:
-                            setCode('ERROR!');
-                            setImage(errorUnknown);
-                            setText('Network Error')
-                            setInfo('AxiosError')
-                            break;
-                    }
-                }
-                setText(e.response.data.errorText)
-                setInfo(e.response.data.info)
+                axiosError(e)
             })
             .finally(() => setIsLoading(false))
     }
+
+    const axiosError = (e: AxiosError) => {
+        if (axios.isAxiosError(e)) {
+            if (e.response) {
+                handleErrorResponse(e.response);
+            } else {
+                handleNetworkError();
+            }
+        } else {
+            handleUnexpectedError();
+        }
+    }
+
+    const handleErrorResponse = (response: AxiosResponse) => {
+        switch (response.status) {
+            case 400:
+                setCode('Код 400!');
+                setImage(error400);
+                break;
+            case 500:
+                setCode('Код 500!');
+                setImage(error500);
+                break;
+            default:
+                setCode('ERROR!');
+                setImage(errorUnknown);
+                setText('Network Error');
+                setInfo('AxiosError');
+                return;
+        }
+        setText(response.data.errorText);
+        setInfo(response.data.info);
+    };
+
+    const handleNetworkError = () => {
+        setCode('ERROR!');
+        setImage(errorUnknown);
+        setText('Network Error');
+        setInfo('AxiosError');
+    };
+
+    const handleUnexpectedError = () => {
+        setCode('ERROR!');
+        setImage(errorUnknown);
+        setText('An unexpected error occurred');
+        setInfo('Error');
+    };
+
 
     return (
         <div id={'hw13'}>
