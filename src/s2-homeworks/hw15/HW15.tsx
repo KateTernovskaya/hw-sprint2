@@ -51,36 +51,26 @@ const HW15 = () => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                if (res) {
+                    setTechs(res.data.techs)
+                    setTotalCount(res.data.totalCount)
+                    setLoading(false)
+                }
             })
     }
 
     const onChangePagination = (newPage: number, newCount: number) => {
-        // делает студент
-
-        // setPage(
-        // setCount(
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
+        setPage(newPage)
+        setCount(newCount)
+        sendQuery({sort, page: newPage, count: newCount})
+        setSearchParams({sort, page: newPage?.toString(), count: newCount?.toString()})
     }
 
     const onChangeSort = (newSort: string) => {
-        // делает студент
-
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
+        setSort(newSort)
+        setPage(1)
+        sendQuery({sort: newSort, page: 1, count})
+        setSearchParams({sort: newSort, page: '1', count: count.toString()})
     }
 
     useEffect(() => {
@@ -107,7 +97,13 @@ const HW15 = () => {
             <div className={s2.hwTitle}>Homework #15</div>
 
             <div className={s2.hw}>
-                {idLoading && <div id={'hw15-loading'} className={s.loading}>Loading...</div>}
+                {idLoading && <div id={'hw15-loading'} className={s.cssloadContainer}>
+                        <ul className={s.cssloadFlexContainer}>
+                            <li>
+                                <span className={s.cssloadLoading}></span>
+                            </li>
+                        </ul>
+                </div>}
 
                 <SuperPagination
                     page={page}
